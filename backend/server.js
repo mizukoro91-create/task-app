@@ -15,6 +15,17 @@ const pool = new Pool({
   ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false}
 );
 
+pool.query(`
+  CREATE TABLE IF NOT EXISTS tasks (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    completed BOOLEAN DEFAULT false,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
+`)
+.then(() => console.log("★テーブルの準備が完了しました！"))
+.catch(err => console.error("テーブル作成エラー:", err));
+
 app.use(express.static(path.resolve(__dirname, "..", "frontend", "dist")));
 
 app.get("/", (req, res) => {
