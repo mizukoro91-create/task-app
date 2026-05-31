@@ -15,9 +15,15 @@ const pool = new Pool({
   ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false}
 );
 
+app.use(express.static(path.resolve(__dirname, "..", "frontend", "build")));
+
 app.get("/", (req, res) => {
-  res.send("server ok");
+  res.sendFile(path.resolve(__dirname, "..", "frontend", "build", "index.html"));
 });
+
+// app.get("/", (req, res) => {
+//   res.send("server ok");
+// });
 
 app.get("/tasks", async (req, res) => {
   app.delete("/tasks/:id", async (req, res) => {
