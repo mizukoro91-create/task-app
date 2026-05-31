@@ -8,7 +8,7 @@ function App() {
 
   const getTasks = () => {
 
-    fetch("http://localhost:3000/tasks")
+    fetch("/tasks")
       .then((res) => res.json())
       .then((data) => {
         setTasks(data);
@@ -22,7 +22,7 @@ function App() {
 
   const addTask = async () => {
 
-    await fetch("http://localhost:3000/tasks", {
+    await fetch("/tasks", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +41,7 @@ function App() {
 
     setTimeout(async () => {
 
-      await fetch(`http://localhost:3000/tasks/${id}`, {
+      await fetch(`/tasks/${id}`, {
         method: "DELETE",
       });
 
@@ -55,7 +55,7 @@ function App() {
 
   if (!newTitle) return;
 
-  await fetch(`http://localhost:3000/tasks/${id}`, {
+  await fetch(`/tasks/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
